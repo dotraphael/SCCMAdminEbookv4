@@ -1,2 +1,2 @@
 # SCCMAdminEbookv4
-Scripts used by the SCCM e-book v4
+ This repository contains all the chapters and scripts used on the SCCM Administrator E-book v4 
