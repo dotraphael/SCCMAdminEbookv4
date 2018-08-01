@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+  <settings pass="specialize">
+    <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <InputLocale>00000809</InputLocale>
+      <SystemLocale>en-GB</SystemLocale>
+      <UILanguage>en-GB</UILanguage>
+      <UILanguageFallback>en-US</UILanguageFallback>
+      <UserLocale>en-GB</UserLocale>
+    </component>
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <ComputerName>WKS0004</ComputerName>
+      <DoNotCleanTaskBar>true</DoNotCleanTaskBar>
+      <RegisteredOrganization>.</RegisteredOrganization>
+      <RegisteredOwner>.</RegisteredOwner>
+      <TimeZone>GMT Standard Time</TimeZone>
+      <ProductKey>QWFN2-C4HMX-DYP4R-4GC7P-Q3VQQ</ProductKey>
+    </component>
+    <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <RunSynchronous>
+        <RunSynchronousCommand wcm:action="add">
+          <Description>EnableAdmin</Description>
+          <Order>1</Order>
+          <Path>cmd /c net user Administrator /active:yes</Path>
+        </RunSynchronousCommand>
+      </RunSynchronous>
+    </component>
+    <component name="Microsoft-Windows-IE-InternetExplorer" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <SearchScopes>
+        <Scope wcm:action="add">
+          <ScopeDefault>true</ScopeDefault>
+          <ScopeDisplayName>Google</ScopeDisplayName>
+          <ScopeKey>Google</ScopeKey>
+          <ScopeUrl>http://www.google.com/search?q={searchTerms}</ScopeUrl>
+        </Scope>
+      </SearchScopes>
+      <DisableAccelerators>true</DisableAccelerators>
+      <DisableFirstRunWizard>true</DisableFirstRunWizard>
+      <PrivacyAdvisorMode>0</PrivacyAdvisorMode>
+      <Home_Page>about:blank</Home_Page>
+    </component>
+    <component name="Microsoft-Windows-UnattendedJoin" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Identification>
+        <Credentials>
+          <Domain>classroom.intranet</Domain>
+          <Password>Pa$$w0rd</Password>
+          <Username>administrator</Username>
+        </Credentials>
+        <JoinDomain>classroom.intranet</JoinDomain>
+        <MachineObjectOU>OU=Enabled,OU=Workstations,OU=Classroom,DC=Classroom,DC=intranet</MachineObjectOU>
+      </Identification>
+    </component>
+  </settings>
+  <settings pass="oobeSystem">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <OOBE>
+        <HideEULAPage>true</HideEULAPage>
+        <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+        <NetworkLocation>Work</NetworkLocation>
+        <ProtectYourPC>1</ProtectYourPC>
+        <SkipUserOOBE>true</SkipUserOOBE>
+        <SkipMachineOOBE>true</SkipMachineOOBE>
+      </OOBE>
+      <UserAccounts>
+        <AdministratorPassword>
+          <Value>UABhACQAJAB3ADAAcgBkAEEAZABtAGkAbgBpAHMAdAByAGEAdABvAHIAUABhAHMAcwB3AG8AcgBkAA==</Value>
+          <PlainText>false</PlainText>
+        </AdministratorPassword>
+      </UserAccounts>
+      <DoNotCleanTaskBar>true</DoNotCleanTaskBar>
+      <RegisteredOrganization>.</RegisteredOrganization>
+      <RegisteredOwner>.</RegisteredOwner>
+      <TimeZone>GMT Standard Time</TimeZone>
+    </component>
+    <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <InputLocale>00000809</InputLocale>
+      <SystemLocale>en-GB</SystemLocale>
+      <UILanguage>en-GB</UILanguage>
+      <UserLocale>en-GB</UserLocale>
+      <UILanguageFallback>en-US</UILanguageFallback>
+    </component>
+  </settings>
+  <settings pass="windowsPE">
+    <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <SetupUILanguage>
+        <UILanguage>en-US</UILanguage>
+      </SetupUILanguage>
+      <InputLocale>00000809</InputLocale>
+      <SystemLocale>en-GB</SystemLocale>
+      <UILanguage>en-GB</UILanguage>
+      <UserLocale>en-GB</UserLocale>
+      <UILanguageFallback>en-US</UILanguageFallback>
+    </component>
+  </settings>
+  <cpi:offlineImage cpi:source="" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>

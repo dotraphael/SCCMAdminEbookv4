@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>00000809</InputLocale>
+            <SystemLocale>en-GB</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-GB</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ComputerName>SRV0001</ComputerName>
+            <DoNotCleanTaskBar>true</DoNotCleanTaskBar>
+            <RegisteredOrganization>.</RegisteredOrganization>
+            <RegisteredOwner>.</RegisteredOwner>
+            <ShowPowerButtonOnStartScreen>true</ShowPowerButtonOnStartScreen>
+            <TimeZone>GMT Standard Time</TimeZone>
+            <ProductKey>C3RCX-M6NRP-6CXC9-TW2F2-4RHYD</ProductKey>
+        </component>
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Description>EnableAdmin</Description>
+                    <Order>1</Order>
+                    <Path>cmd /c net user Administrator /active:yes</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+        <component name="Microsoft-Windows-ServerManager-SvrMgrNc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DoNotOpenServerManagerAtLogon>true</DoNotOpenServerManagerAtLogon>
+        </component>
+        <component name="Microsoft-Windows-IE-ESC" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <IEHardenAdmin>false</IEHardenAdmin>
+            <IEHardenUser>false</IEHardenUser>
+        </component>
+        <component name="Microsoft-Windows-IE-InternetExplorer" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SearchScopes>
+                <Scope wcm:action="add">
+                    <ScopeDefault>true</ScopeDefault>
+                    <ScopeDisplayName>Google</ScopeDisplayName>
+                    <ScopeKey>Google</ScopeKey>
+                    <ScopeUrl>http://www.google.com/search?q={searchTerms}</ScopeUrl>
+                </Scope>
+            </SearchScopes>
+            <DisableAccelerators>true</DisableAccelerators>
+            <DisableFirstRunWizard>true</DisableFirstRunWizard>
+            <PrivacyAdvisorMode>0</PrivacyAdvisorMode>
+            <Home_Page>about:blank</Home_Page>
+        </component>
+        <component name="Microsoft-Windows-TCPIP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Interfaces>
+                <Interface wcm:action="add">
+                    <Ipv4Settings>
+                        <DhcpEnabled>false</DhcpEnabled>
+                    </Ipv4Settings>
+                    <Identifier>Ethernet</Identifier>
+                    <UnicastIpAddresses>
+                        <IpAddress wcm:action="add" wcm:keyValue="1">192.168.3.1/24</IpAddress>
+                    </UnicastIpAddresses>
+                    <Routes>
+                        <Route wcm:action="add">
+                            <Identifier>0</Identifier>
+                            <Prefix>0.0.0.0/0</Prefix>
+                            <Metric>20</Metric>
+                            <NextHopAddress>192.168.3.254</NextHopAddress>
+                        </Route>
+                    </Routes>
+                </Interface>
+            </Interfaces>
+        </component>
+        <component name="Microsoft-Windows-DNS-Client" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Interfaces>
+                <Interface wcm:action="add">
+                    <DNSServerSearchOrder>
+                        <IpAddress wcm:action="add" wcm:keyValue="1">8.8.8.8</IpAddress>
+                    </DNSServerSearchOrder>
+                    <Identifier>Ethernet</Identifier>
+                    <EnableAdapterDomainNameRegistration>true</EnableAdapterDomainNameRegistration>
+                    <DNSDomain>classroom.intranet</DNSDomain>
+                </Interface>
+            </Interfaces>
+        </component>
+        <component name="Microsoft-Windows-IE-InternetExplorer" processorArchitecture="wow64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SearchScopes>
+                <Scope wcm:action="add">
+                    <ScopeUrl>http://www.google.com/search?q={searchTerms}</ScopeUrl>
+                    <ScopeDefault>true</ScopeDefault>
+                    <ScopeDisplayName>Google</ScopeDisplayName>
+                    <ScopeKey>Google</ScopeKey>
+                </Scope>
+            </SearchScopes>
+            <Home_Page>about:blank</Home_Page>
+            <DisableAccelerators>true</DisableAccelerators>
+            <DisableFirstRunWizard>true</DisableFirstRunWizard>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <NetworkLocation>Work</NetworkLocation>
+                <ProtectYourPC>1</ProtectYourPC>
+            </OOBE>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>UABhACQAJAB3ADAAcgBkAEEAZABtAGkAbgBpAHMAdAByAGEAdABvAHIAUABhAHMAcwB3AG8AcgBkAA==</Value>
+                    <PlainText>false</PlainText>
+                </AdministratorPassword>
+            </UserAccounts>
+            <DoNotCleanTaskBar>true</DoNotCleanTaskBar>
+            <RegisteredOrganization>.</RegisteredOrganization>
+            <RegisteredOwner>.</RegisteredOwner>
+            <TimeZone>GMT Standard Time</TimeZone>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>00000809</InputLocale>
+            <SystemLocale>en-GB</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-GB</UserLocale>
+        </component>
+    </settings>
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+            <InputLocale>00000809</InputLocale>
+            <SystemLocale>en-GB</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-GB</UserLocale>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
