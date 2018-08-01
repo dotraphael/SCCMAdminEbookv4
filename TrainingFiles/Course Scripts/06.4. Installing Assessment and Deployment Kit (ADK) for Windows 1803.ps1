@@ -1,0 +1,1 @@
+Start-Process -Filepath ("\\srv0001\TrainingFiles\Source\AdkW10\adksetup.exe") -ArgumentList ("/quiet /ceip off /norestart /Features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment OptionId.ImagingAndConfigurationDesigner OptionId.ICDConfigurationDesigner OptionId.UserStateMigrationTool") -wait

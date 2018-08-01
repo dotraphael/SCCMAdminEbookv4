@@ -1,0 +1,1 @@
+Get-WindowsFeature -Name RDC | Install-WindowsFeature

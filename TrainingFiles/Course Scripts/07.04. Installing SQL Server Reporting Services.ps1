@@ -1,0 +1,1 @@
+Start-Process -Filepath ("\\srv0001\TrainingFiles\Source\SQLServer\SQLServerReportingServices.exe") -ArgumentList ('/IAcceptLicenseTerms /Quiet /Norestart') -wait

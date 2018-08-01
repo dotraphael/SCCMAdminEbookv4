@@ -1,0 +1,1 @@
+New-NetFirewallRule -DisplayName "SCCM Console (TCP 135) Inbound" -Action Allow -Direction Inbound -LocalPort 135 -Protocol TCP

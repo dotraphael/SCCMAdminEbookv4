@@ -1,0 +1,1 @@
+Start-Process -Filepath ("msiexec.exe") -ArgumentList ('/i "\\srv0001\Trainingfiles\Source\SCCMCB-Toolkit\ConfigMgrTools.msi" /qb /l*v c:\ConfigMgrTools.msi.log') -wait
