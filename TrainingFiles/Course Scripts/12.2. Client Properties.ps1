@@ -1,0 +1,1 @@
+Get-CMDevice -Name "WKS000?" | select Name, ClientEdition, DeviceOS

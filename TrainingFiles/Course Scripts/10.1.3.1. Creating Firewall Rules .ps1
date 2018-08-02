@@ -1,0 +1,1 @@
+New-NetFirewallRule -DisplayName "IIS Fallback Status Point (TCP 80) Inbound" -Action Allow -Direction Inbound -LocalPort 80 -Protocol TCP

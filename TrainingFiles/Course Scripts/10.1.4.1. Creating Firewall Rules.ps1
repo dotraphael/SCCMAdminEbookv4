@@ -1,0 +1,1 @@
+New-NetFirewallRule -DisplayName "SQL Server Reporting Services (TCP 80) Inbound" -Action Allow -Direction Inbound -LocalPort 80 -Protocol TCP
