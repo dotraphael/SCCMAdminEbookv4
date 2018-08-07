@@ -1,0 +1,1 @@
+Set-CMClientStatusSetting -ClientPolicyDays 1 -HardwareInventoryDays 1 -HeartbeatDiscoveryDays 1 -SoftwareInventoryDays 1 -StatusMessageDays 1
