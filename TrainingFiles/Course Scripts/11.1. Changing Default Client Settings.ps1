@@ -39,7 +39,7 @@ $SettingsXML = [xml]@"
     <installed-applications-hidden>false</installed-applications-hidden>
   </software-list>
   <brand-logo>$Encoded</brand-logo>
-  <brand-orgname>Test</brand-orgname>
+  <brand-orgname>Training Lab</brand-orgname>
   <brand-color />
   <application-catalog-link-hidden>false</application-catalog-link-hidden>
 </settings>
