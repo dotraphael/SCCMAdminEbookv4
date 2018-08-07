@@ -65,6 +65,7 @@ $eicarString2 = '-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*'
 
 $downloadFiles = @(
 "7-zip;http://www.7-zip.org/a/7z1604-x64.exe;7z1604-x64.exe",
+"Silverlight;http://go.microsoft.com/fwlink/?LinkID=229321;Silverlight_x64.exe"
 "AdobeXI;ftp://ftp.adobe.com/pub/adobe/reader/win/11.x/11.0.10/en_US/AdbeRdr11010_en_US.exe;AdbeRdr11010_en_US.exe",
 "Chrome for Windows;https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B03FE9563-80F9-119F-DA3D-72FBBB94BC26%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable/dl/chrome/install/googlechromestandaloneenterprise64.msi;googlechromestandaloneenterprise64.msi",
 "Firefox 49;https://ftp.mozilla.org/pub/firefox/releases/49.0.1/win64/en-GB/Firefox%20Setup%2049.0.1.exe;Firefox Setup 49.0.1.exe",
