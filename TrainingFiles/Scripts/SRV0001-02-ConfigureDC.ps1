@@ -10,7 +10,7 @@ NEW-ADOrganizationalUnit "Classroom"
 NEW-ADOrganizationalUnit "Admins" –path "OU=Classroom,DC=Classroom,DC=intranet"
 NEW-ADOrganizationalUnit "Groups" –path "OU=Classroom,DC=Classroom,DC=intranet"
 NEW-ADOrganizationalUnit "Servers" –path "OU=Classroom,DC=Classroom,DC=intranet"
-NEW-ADOrganizationalUnit "SCCM" –path "OU=Servers,OU=Classroom,DC=Classroom,DC=intranet"
+NEW-ADOrganizationalUnit "MECM" –path "OU=Servers,OU=Classroom,DC=Classroom,DC=intranet"
 NEW-ADOrganizationalUnit "Service Accounts" –path "OU=Classroom,DC=Classroom,DC=intranet"
 NEW-ADOrganizationalUnit "Users" –path "OU=Classroom,DC=Classroom,DC=intranet"
 NEW-ADOrganizationalUnit "Workstations" –path "OU=Classroom,DC=Classroom,DC=intranet"
@@ -19,21 +19,21 @@ NEW-ADOrganizationalUnit "Disabled" –path "OU=Workstations,OU=Classroom,DC=Class
 
 ##Admin Account Creation
 $SecurePassword = 'Pa$$w0rd' | ConvertTo-SecureString -AsPlainText -Force
-New-ADUser -Name sccmadmin -AccountPassword $SecurePassword -Description "SCCMAdmin" -DisplayName "SCCMAdmin" -UserPrincipalName "sccmadmin@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Admins,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
+New-ADUser -Name mecmadmin -AccountPassword $SecurePassword -Description "MECMAdmin" -DisplayName "MECMAdmin" -UserPrincipalName "mecmadmin@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Admins,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
 New-ADUser -Name workstationadmin -AccountPassword $SecurePassword -Description "WorkstationAdmin" -DisplayName "WorkstationAdmin" -UserPrincipalName "WorkstationAdmin@classroom.intranet"  -PasswordNeverExpires $true -Path "OU=Admins,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
 
 ##Group creation
-New-ADGroup -GroupScope Global -GroupCategory Security -Name "SCCM Admins" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
-New-ADGroup -GroupScope Global -GroupCategory Security -Name "SCCM Mobile Device Users" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
-New-ADGroup -GroupScope Global -GroupCategory Security -Name "SCCM remote Tools" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
-New-ADGroup -GroupScope Global -GroupCategory Security -Name "SCCM Servers" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+New-ADGroup -GroupScope Global -GroupCategory Security -Name "MECM Admins" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+New-ADGroup -GroupScope Global -GroupCategory Security -Name "MECM Mobile Device Users" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+New-ADGroup -GroupScope Global -GroupCategory Security -Name "MECM remote Tools" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+New-ADGroup -GroupScope Global -GroupCategory Security -Name "MECM Servers" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 New-ADGroup -GroupScope Global -GroupCategory Security -Name "Workstation Admins" -Path "OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 
 ##Service Account Creation
-New-ADUser -Name svc_sccmna -AccountPassword $SecurePassword -Description "svc_sccmna" -DisplayName "svc_sccmna" -UserPrincipalName "svc_sccmna@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
-New-ADUser -Name svc_sccmpush -AccountPassword $SecurePassword -Description "svc_sccmpush" -DisplayName "svc_sccmpush" -UserPrincipalName "svc_sccmpush@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
+New-ADUser -Name svc_mecmna -AccountPassword $SecurePassword -Description "svc_mecmna" -DisplayName "svc_mecmna" -UserPrincipalName "svc_mecmna@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
+New-ADUser -Name svc_mecmpush -AccountPassword $SecurePassword -Description "svc_mecmpush" -DisplayName "svc_mecmpush" -UserPrincipalName "svc_mecmpush@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
 New-ADUser -Name svc_ssrsea -AccountPassword $SecurePassword -Description "svc_ssrsea" -DisplayName "svc_ssrsea" -UserPrincipalName "svc_ssrsea@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
-New-ADUser -Name svc_sccmjoin -AccountPassword $SecurePassword -Description "svc_sccmjoin" -DisplayName "svc_sccmjoin" -UserPrincipalName "svc_sccmjoin@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
+New-ADUser -Name svc_mecmjoin -AccountPassword $SecurePassword -Description "svc_mecmjoin" -DisplayName "svc_mecmjoin" -UserPrincipalName "svc_mecmjoin@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
 
 ##User creation
 New-ADUser -Name User01 -AccountPassword $SecurePassword -Description "User01" -DisplayName "User01" -UserPrincipalName "User01@classroom.intranet" -PasswordNeverExpires $true -Path "OU=Users,OU=classroom,dc=classroom,dc=intranet" -Enabled $true
@@ -47,40 +47,40 @@ set-aduser User02 -Office 'User2 Office' -Department 'User2 Department'
 set-aduser Administrator -PasswordNeverExpires $true
 
 ##Computer Account Creation
-New-ADComputer -Name "SRV0002" -SamAccountName "SRV0002" -Path "OU=SCCM,OU=Servers,OU=classroom,dc=classroom,dc=intranet"
+New-ADComputer -Name "SRV0002" -SamAccountName "SRV0002" -Path "OU=MECM,OU=Servers,OU=classroom,dc=classroom,dc=intranet"
 New-ADComputer -Name "WKS0001" -SamAccountName "WKS0001" -Path "OU=Enabled,OU=Workstations,OU=classroom,dc=classroom,dc=intranet"
 New-ADComputer -Name "WKS0002" -SamAccountName "WKS0002" -Path "OU=Enabled,OU=Workstations,OU=classroom,dc=classroom,dc=intranet"
 
 ##Group Population
-$server = Get-ADComputer "CN=SRV0002,OU=SCCM,OU=Servers,OU=classroom,dc=classroom,dc=intranet"
-$group = Get-ADGroup "CN=SCCM Servers,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+$server = Get-ADComputer "CN=SRV0002,OU=MECM,OU=Servers,OU=classroom,dc=classroom,dc=intranet"
+$group = Get-ADGroup "CN=MECM Servers,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 Add-ADGroupMember $group -Members $server
 
-$user = Get-ADUser "CN=sccmadmin,OU=Admins,OU=classroom,dc=classroom,dc=intranet"
-$group = Get-ADGroup "CN=SCCM Admins,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+$user = Get-ADUser "CN=mecmadmin,OU=Admins,OU=classroom,dc=classroom,dc=intranet"
+$group = Get-ADGroup "CN=MECM Admins,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 Add-ADGroupMember $group -Members $user
 
-$user = Get-ADUser "CN=sccmadmin,OU=Admins,OU=classroom,dc=classroom,dc=intranet"
-$group = Get-ADGroup "CN=SCCM remote Tools,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+$user = Get-ADUser "CN=mecmadmin,OU=Admins,OU=classroom,dc=classroom,dc=intranet"
+$group = Get-ADGroup "CN=mecm remote Tools,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 Add-ADGroupMember $group -Members $user
 
 $user = Get-ADUser "CN=workstationadmin,OU=Admins,OU=classroom,dc=classroom,dc=intranet"
 $group = Get-ADGroup "CN=Workstation Admins,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 Add-ADGroupMember $group –Members $user
 
-$user = Get-ADUser "CN=svc_sccmpush,OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet"
+$user = Get-ADUser "CN=svc_mecmpush,OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet"
 $group = Get-ADGroup "CN=Workstation Admins,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 Add-ADGroupMember $group –Members $user
 
 $user = Get-ADUser "CN=user02,OU=Users,OU=classroom,dc=classroom,dc=intranet"
-$group = Get-ADGroup "CN=SCCM Mobile Device Users,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
+$group = Get-ADGroup "CN=MECM Mobile Device Users,OU=Groups,OU=classroom,dc=classroom,dc=intranet"
 Add-ADGroupMember $group –Members $user
 
 ##Security configuration for the Join Account
 Import-Module ActiveDirectory
 $root = (Get-ADRootDSE).defaultNamingContext
 
-$objUser = Get-ADUser "CN=svc_sccmjoin,OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet"
+$objUser = Get-ADUser "CN=svc_mecmjoin,OU=Service Accounts,OU=classroom,dc=classroom,dc=intranet"
 $objectComputerguid = new-object Guid bf967a86-0de6-11d0-a285-00aa003049e2
 $acl = get-acl "ad:$root"
                 
@@ -153,17 +153,17 @@ Set-Acl "c:\wsusdownloadcontent" $Acl
 ##Create WSUSDownloadContent Share
 New-SmbShare -Name "WSUSDownloadContent" -Path "c:\WSUSDownloadContent" -FullAccess Everyone
 
-##Create SCCMBackup folder 
-New-Item "c:\SCCMBackup" -ItemType Directory
+##Create MECMBackup folder 
+New-Item "c:\MECMBackup" -ItemType Directory
 
-##Set NTFS Rights on SCCMBackup folder 
-$Acl = Get-Acl "c:\SCCMBackup"
+##Set NTFS Rights on MECMBackup folder 
+$Acl = Get-Acl "c:\MECMBackup"
 $Ar = New-Object  system.security.accesscontrol.filesystemaccessrule("Everyone","FullControl","ContainerInherit, ObjectInherit", "None", "Allow")
 $Acl.SetAccessRule($Ar)
-Set-Acl "c:\SCCMBackup" $Acl
+Set-Acl "c:\MECMBackup" $Acl
 
-##Create SCCMBackup Share
-New-SmbShare -Name "SCCMBackup" -Path "c:\SCCMBackup" -FullAccess Everyone
+##Create MECMBackup Share
+New-SmbShare -Name "MECMBackup" -Path "c:\MECMBackup" -FullAccess Everyone
 
 ##DHCP Installation and Configuration
 Get-WindowsFeature DHCP | Install-WindowsFeature

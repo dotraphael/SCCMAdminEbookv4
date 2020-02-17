@@ -102,7 +102,7 @@ if ($component -is [Array]) {
     $Total = $component.InsStrValue
 }
 
-$roles = gwmi -Namespace ("root\sms\site_001") -query "select * from SMS_SCI_SysResUse where FileType=2"
+$roles = gwmi -Namespace ("root\sms\site_001") -query "select * from SMS_SCI_SysResUse where FileType=2 and RoleName != 'SMS Provider'"
 if ($roles.count -ne $total) {
     Write-Host "ERROR: Found $($roles.count). expected $Total"  -ForegroundColor Red
 } else {

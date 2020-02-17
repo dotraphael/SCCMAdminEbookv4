@@ -8,4 +8,4 @@ if ($ModulePath -eq $null) {
 $ModulePath += "\CmRcViewer.exe"
 
 $device = Get-CMDevice -Name "WKS0001"
-if ($Device.IsClient -eq $true) { Start-Process -Filepath ("$ModulePath") -ArgumentList ("$($device.Name) \\$($servername)") } else { "Computer is not a SCCM Client" }
+if ($Device.IsClient -eq $true) { Start-Process -Filepath ("$ModulePath") -ArgumentList ("$($device.Name) \\$($servername)") } else { "Computer is not a MECM Client" }

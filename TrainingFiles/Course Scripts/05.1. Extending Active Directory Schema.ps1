@@ -1,5 +1,5 @@
 #Extend Schema
-Start-Process -Filepath ('C:\trainingfiles\Source\SCCMCB\Extract\SMSSETUP\BIN\X64\extadsch.exe') -wait 
+Start-Process -Filepath ('C:\trainingfiles\Source\MECMCB\Extract\SMSSETUP\BIN\X64\extadsch.exe') -wait -NoNewWindow
 Start-Sleep 30
 
 #Confirm Schema Extension

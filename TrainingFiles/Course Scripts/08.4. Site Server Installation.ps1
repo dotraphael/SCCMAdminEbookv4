@@ -12,7 +12,7 @@ SDKServer=SRV0002.classroom.intranet
 RoleCommunicationProtocol=HTTPorHTTPS
 ClientsUsePKICertificate=0
 PrerequisiteComp=1
-PrerequisitePath=\\srv0001\Trainingfiles\Source\SCCMCB\Redist
+PrerequisitePath=\\srv0001\Trainingfiles\Source\MECMCB\Redist
 MobileDeviceLanguage=0
 AdminConsole=1
 JoinCEIP=0
@@ -41,4 +41,4 @@ SysCenterId=Lzyga7QBe84u7mZvvIcFmoh9fWeQymoIYs0Cvqz4yhU=
 
 $inifile -replace "`n", "`r`n"| Out-File -FilePath "\\srv0001\TempFiles\installcmcb.ini"
 
-Start-Process -Filepath ("\\srv0001\TrainingFiles\Source\SCCMCB\Extract\SMSSETUP\BIN\X64\setup.exe") -ArgumentList ('/script "\\srv0001\TempFiles\installcmcb.ini"') -wait
+Start-Process -Filepath ("\\srv0001\TrainingFiles\Source\MECMCB\Extract\SMSSETUP\BIN\X64\setup.exe") -ArgumentList ('/script "\\srv0001\TempFiles\installcmcb.ini"') -wait -NoNewWindow

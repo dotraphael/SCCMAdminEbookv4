@@ -1,9 +1,15 @@
 $logpath = "$($env:windir)\temp\CreateVMs.ps1.log"
-$rootFolder = "D:\TrainingFilesv4"
-#$Edition = "ServerStandardEval"
-$Edition = "ServerStandard"
+$rootFolder = "E:\CorpVMs\TrainingFilesv4ADM"
+$Edition = "Windows Server 2019 Standard Evaluation (Desktop Experience)"
+#$Edition = "Windows Server 2019 Standard (Desktop Experience)"
+$WSEdition = "Windows 10 Enterprise Evaluation"
+#$WSEdition = "Enterprise"
+
+$W81Edition = "Windows 8.1 Enterprise Evaluation"
+#$W81Edition = "Windows 8.1"
+
 $CreateVM = $true
-$ExternalSwitch = "EXTERNAL"
+$ExternalSwitch = "CLASSROOM-EXTERNAL"
 $InternalSwitch = "CLASSROOM-INTERNAL"
 
 # Load (aka "dot-source) the Function
@@ -72,7 +78,7 @@ if ((get-vm -Name "CLASSROOM-ROUTER01" -ErrorAction SilentlyContinue) -ne $null)
 			New-VM -Name "CLASSROOM-ROUTER01" -VHDPath "$($rootFolder)\VHDX\router01.vhdx" -MemoryStartupBytes (512 * 1024 * 1024) -SwitchName $ExternalSwitch -Generation 1 -Path "$($rootFolder)\VHDX"
 			Add-VMNetworkAdapter -VMName "CLASSROOM-ROUTER01" -SwitchName $InternalSwitch
 			Enable-VMIntegrationService -Name "Guest Service Interface" -VMName "CLASSROOM-ROUTER01"
-			Set-VMDvdDrive -VMName "CLASSROOM-ROUTER01" -ControllerNumber 1 -Path "$($rootFolder)\isos\vyos-1.1.3-amd64.iso"
+			Set-VMDvdDrive -VMName "CLASSROOM-ROUTER01" -ControllerNumber 1 -Path "$($rootFolder)\isos\vyos-rolling-latest.iso"
 		} else {
             Write-log -message "Creation of ROUTER01 VM has been ignored because CreateVM variable is set to false" -severity 2
         }
@@ -88,9 +94,9 @@ if ((get-vm -Name "CLASSROOM-SRV0001" -ErrorAction SilentlyContinue) -ne $null) 
 	try {
 		if (-not (Test-Path -Path "$($rootFolder)\VHDX\srv0001.vhdx")) {
 			Write-log -message "Create SRV0001 VHDX file" -severity 1
-			Convert-WindowsImage -WIM "$($rootFolder)\source\WS2016\sources\install.wim" -VHDFormat VHDX -SizeBytes 127GB -VHDPath "$($rootFolder)\VHDX\srv0001.vhdx" -Edition $Edition -VHDPartitionStyle GPT
-			Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\srv0001.vhdx"
-			$DriveLetter = (Get-Volume | Where-Object { $_.FileSystemLabel -eq "" }).DriveLetter | select-object -last 1
+            Convert-WindowsImage -SourcePath "$($rootFolder)\isos\WS2019.iso" -VHDFormat "VHDX" -Edition $Edition -SizeBytes 127GB -DiskLayout "UEFI" -VHDPath "$($rootFolder)\VHDX\srv0001.vhdx"
+			$mountResult = Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\srv0001.vhdx"
+			$DriveLetter = ($mountResult | Get-Disk | Get-Partition | Where-Object {$_.Type -eq 'Basic'}).DriveLetter
 			Copy-Item "$($rootFolder)\GPO" "$($DriveLetter):\trainingfiles\GPO" -Force -Recurse
 			Copy-Item "$($rootFolder)\OSCaptured" "$($DriveLetter):\trainingfiles\OSCaptured" -Force -Recurse
 			Copy-Item "$($rootFolder)\Scripts" "$($DriveLetter):\trainingfiles\Scripts" -Force -Recurse
@@ -130,9 +136,9 @@ if ((get-vm -Name "CLASSROOM-SRV0002" -ErrorAction SilentlyContinue) -ne $null) 
 	try {
 		if (-not (Test-Path -Path "$($rootFolder)\VHDX\srv0002.vhdx")) {
 			Write-log -message "Create SRV0002 VHDX file" -severity 1
-			Convert-WindowsImage -WIM "$($rootFolder)\source\WS2016\sources\install.wim" -VHDFormat VHDX -SizeBytes 127GB -VHDPath "$($rootFolder)\VHDX\srv0002.vhdx" -Edition $Edition -VHDPartitionStyle GPT
-			Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\srv0002.vhdx"
-			$DriveLetter = (Get-Volume | Where-Object { $_.FileSystemLabel -eq "" }).DriveLetter | select-object -last 1
+			Convert-WindowsImage -SourcePath "$($rootFolder)\isos\WS2019.iso" -VHDFormat "VHDX" -Edition $Edition -SizeBytes 127GB -DiskLayout "UEFI" -VHDPath "$($rootFolder)\VHDX\srv0002.vhdx"
+			$mountResult = Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\srv0002.vhdx"
+			$DriveLetter = ($mountResult | Get-Disk | Get-Partition | Where-Object {$_.Type -eq 'Basic'}).DriveLetter
 			New-Item "$($DriveLetter):\Windows\Panther" -type directory -force | out-null
 			$answerfile = gc "$($rootFolder)\AnswerFiles\SRV0002.xml"
 			$answerfile | Out-File -FilePath "$($DriveLetter):\Windows\Panther\unattend.xml" -NoClobber -Encoding default -Force
@@ -170,9 +176,9 @@ if ((get-vm -Name "CLASSROOM-WKS0001" -ErrorAction SilentlyContinue) -ne $null) 
 	try {
 		if (-not (Test-Path -Path "$($rootFolder)\VHDX\wks0001.vhdx")) {
 			Write-log -message "Create WKS0001 VHDX file" -severity 1
-			Convert-WindowsImage -WIM "$($rootFolder)\source\W10EE\sources\install.wim" -VHDFormat VHDX -SizeBytes 127GB -VHDPath "$($rootFolder)\VHDX\wks0001.vhdx" -VHDPartitionStyle GPT -Edition Enterprise
-			Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\wks0001.vhdx"
-			$DriveLetter = (Get-Volume | Where-Object { $_.FileSystemLabel -eq "" }).DriveLetter | select-object -last 1
+			Convert-WindowsImage -SourcePath "$($rootFolder)\isos\W10EE.iso" -VHDFormat "VHDX" -Edition $WSEdition -SizeBytes 127GB -DiskLayout "UEFI" -VHDPath "$($rootFolder)\VHDX\wks0001.vhdx"
+			$mountResult = Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\wks0001.vhdx"
+			$DriveLetter = ($mountResult | Get-Disk | Get-Partition | Where-Object {$_.Type -eq 'Basic'}).DriveLetter
 			New-Item "$($DriveLetter):\Windows\Panther" -type directory -force | out-null
 			$answerfile = gc "$($rootFolder)\AnswerFiles\WKS0001.xml"
 			$answerfile | Out-File -FilePath "$($DriveLetter):\Windows\Panther\unattend.xml" -NoClobber -Encoding default -Force
@@ -208,9 +214,9 @@ if ((get-vm -Name "CLASSROOM-WKS0002" -ErrorAction SilentlyContinue) -ne $null) 
 	try {
 		if (-not (Test-Path -Path "$($rootFolder)\VHDX\wks0002.vhdx")) {
 			Write-log -message "Create WKS0002 VHDX file" -severity 1
-			Convert-WindowsImage -WIM "$($rootFolder)\source\W10EE\sources\install.wim" -VHDFormat VHDX -SizeBytes 127GB -VHDPath "$($rootFolder)\VHDX\wks0002.vhdx" -VHDPartitionStyle GPT -Edition Enterprise
-			Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\wks0002.vhdx"
-			$DriveLetter = (Get-Volume | Where-Object { $_.FileSystemLabel -eq "" }).DriveLetter | select-object -last 1
+			Convert-WindowsImage -SourcePath "$($rootFolder)\isos\W10EE.iso" -VHDFormat "VHDX" -Edition $WSEdition -SizeBytes 127GB -DiskLayout "UEFI" -VHDPath "$($rootFolder)\VHDX\wks0002.vhdx"
+			$mountResult = Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\wks0002.vhdx"
+			$DriveLetter = ($mountResult | Get-Disk | Get-Partition | Where-Object {$_.Type -eq 'Basic'}).DriveLetter
 			New-Item "$($DriveLetter):\Windows\Panther" -type directory -force | out-null
 			$answerfile = gc "$($rootFolder)\AnswerFiles\WKS0002.xml"
 			$answerfile | Out-File -FilePath "$($DriveLetter):\Windows\Panther\unattend.xml" -NoClobber -Encoding default -Force
@@ -246,9 +252,9 @@ if ((get-vm -Name "CLASSROOM-WKS0004" -ErrorAction SilentlyContinue) -ne $null) 
 	try {
 		if (-not (Test-Path -Path "$($rootFolder)\VHDX\wks0004.vhdx")) {
 			Write-log -message "Create WKS0004 VHDX file" -severity 1
-			Convert-WindowsImage -WIM "$($rootFolder)\source\W81EE\sources\install.wim" -VHDFormat VHDX -SizeBytes 127GB -VHDPath "$($rootFolder)\VHDX\wks0004.vhdx" -VHDPartitionStyle GPT -Edition "Windows 8.1"
-			Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\wks0004.vhdx"
-			$DriveLetter = (Get-Volume | Where-Object { $_.FileSystemLabel -eq "" }).DriveLetter | select-object -last 1
+			Convert-WindowsImage -SourcePath "$($rootFolder)\isos\W81EE.iso" -VHDFormat "VHDX" -Edition $W81Edition -SizeBytes 127GB -DiskLayout "UEFI" -VHDPath "$($rootFolder)\VHDX\wks0004.vhdx"
+			$mountResult = Mount-DiskImage -ImagePath "$($rootFolder)\VHDX\wks0004.vhdx"
+			$DriveLetter = ($mountResult | Get-Disk | Get-Partition | Where-Object {$_.Type -eq 'Basic'}).DriveLetter
 			New-Item "$($DriveLetter):\Windows\Panther" -type directory -force | out-null
 			$answerfile = gc "$($rootFolder)\AnswerFiles\WKS0004.xml"
 			$answerfile | Out-File -FilePath "$($DriveLetter):\Windows\Panther\unattend.xml" -NoClobber -Encoding default -Force
@@ -271,36 +277,6 @@ if ((get-vm -Name "CLASSROOM-WKS0004" -ErrorAction SilentlyContinue) -ne $null) 
 			Enable-VMIntegrationService -Name "Guest Service Interface" -VMName "CLASSROOM-WKS0004"
 		} else {
             Write-log -message "Creation of WKS0004 VM has been ignored because CreateVM variable is set to false" -severity 2
-        }
-	} catch {
-		Write-log -message "Error: $_" -severity 3
-	}
-}
-
-if ((get-vm -Name "CLASSROOM-WKS0100" -ErrorAction SilentlyContinue) -ne $null) {
-	Write-log -message "VM CLASSROOM-WKS0100 already exist, ignoring it" -severity 2
-} else {
-	##CREATE WKS0100 VHDX file
-	try {
-		if (-not (Test-Path -Path "$($rootFolder)\VHDX\wks0100.vhdx")) {
-			Write-log -message "Create WKS0100 VHDX file" -severity 1
-			New-VHD -Path "$($rootFolder)\VHDX\WKS0100.vhdx" -SizeBytes (127 * 1024 * 1024 * 1024)
-			start-sleep 5
-		} else {
-            Write-log -message "$($rootFolder)\VHDX\wks0100.vhdx already exist, ignoring it" -severity 2
-        }
-	} catch {
-		Write-log -message "Error: $_" -severity 3
-	}
-
-	##create WKS0100 VM
-	try {
-		if ($CreateVM) {
-			Write-log -message "create WKS0100 VM" -severity 1
-			New-VM -Name "CLASSROOM-WKS0100" -VHDPath "$($rootFolder)\VHDX\WKS0100.vhdx" -MemoryStartupBytes (2 * 1024 * 1024 * 1024) -SwitchName $InternalSwitch -Generation 2 -Path "$($rootFolder)\VHDX"
-			Enable-VMIntegrationService -Name "Guest Service Interface" -VMName "CLASSROOM-WKS0100"
-		} else {
-            Write-log -message "Creation of WKS0100 VM has been ignored because CreateVM variable is set to false" -severity 2
         }
 	} catch {
 		Write-log -message "Error: $_" -severity 3

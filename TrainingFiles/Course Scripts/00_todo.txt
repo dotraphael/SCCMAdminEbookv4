@@ -1,0 +1,25 @@
+xxxx- set administrator password to now expire
+xxxx- certificate authority
+xxxx- download w10 1703 instead of rtm
+xxxx- download 1702 instead 1606
+xxxx- update MECM to 1710 instead of 1706
+xxxx- download 1710 instead of 1702 - not possible, 1702 is the baseline
+xxxx- add option to customise the Software Center with Logo
+xxxx- copy Logo to c:\trainingfiles
+xxxx- update Console before opening it during the upgrade to a new version (<Configuration Manager site server installation path>\Tools\ConsoleSetup = consolesetup.exe /q )
+xxxx- collection for Users
+- not use all users or all systems
+xxxx- install and manage office 365
+xxxx- update readiness
+
+
+xxxx--get site server from registry
+xxxx--get targetdir from registry
+xxxxconsolesetup.exe /q TargetDir="C:\ConfigMgr\ConfigMgrConsole" EnableSQM=0 DefaultSiteServerName="srv0002.classroom.intranet"
+
+xxxx- update to 1706 + hotfixes if exist
+xxxx- add datawarehouse
+- add HTTPS section
+xxxx- add CMG section
+- add section for azure ad users/machines discovery
+xxxx- software update - windows 10 express installation files (https://www.niallbrady.com/2017/02/15/how-can-i-use-express-updates-when-patching-windows-10-with-quality-updates-in-system-center-configuration-manager-current-branch/)

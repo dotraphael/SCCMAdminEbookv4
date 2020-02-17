@@ -1,0 +1,1 @@
+New-CMAdministrativeUser -Name "CLASSROOM\Workstation Admins" -RoleName @("Application Administrator") -CollectionName @("Windows 10 Workstations") -SecurityScopeName @("Application Administrator for Windows 10 Machines")

@@ -7,7 +7,7 @@ if (!([adsi]::Exists("LDAP://CN=System Management,CN=System,$root"))) {
 
 $acl = get-acl "ad:CN=System Management,CN=System,$root"
 
-$objGroup = Get-ADGroup -filter {Name -eq "SCCM Servers"}
+$objGroup = Get-ADGroup -filter {Name -eq "MECM Servers"}
 $All = [System.DirectoryServices.ActiveDirectorySecurityInheritance]::SelfAndChildren
 $ace = new-object System.DirectoryServices.ActiveDirectoryAccessRule $objGroup.SID, "GenericAll", "Allow", $All
 $acl.AddAccessRule($ace) 

@@ -4,7 +4,7 @@ $SiteCode = "001"
 $task = Get-CMSiteSummaryTask -TaskName "Client Health Scheduled Task"
 $Task.RunNow = $true
 $Task.Put()
-Start-Sleep 10
+Start-Sleep 60
  
 $Device = Get-CMDevice -Name "WKS0001" -Fast
 gwmi -namespace "root\sms\site_$SiteCode" -query "select * from SMS_CH_EvalResult where ResourceID = $($Device.ResourceID)" | select HealthCheckDescription
@@ -31,7 +31,8 @@ Start-sleep 10
 Get-Service -Name BITS
 
 #execute evaluation
-Start-Process -Filepath ("c:\windows\ccm\ccmeval.exe") -wait
+Start-Process -Filepath ("c:\windows\ccm\ccmeval.exe") -wait -NoNewWindow
+Start-Sleep 60
 
 #On SRV0002
 $SiteCode = "001"
@@ -39,7 +40,7 @@ $SiteCode = "001"
 $task = Get-CMSiteSummaryTask -TaskName  "Client Health Scheduled Task"
 $Task.RunNow = $true
 $Task.Put()
-Start-Sleep 10
+Start-Sleep 60
  
 $Device = Get-CMDevice -Name "WKS0002"
 gwmi -namespace "root\sms\site_$SiteCode" -query "select * from SMS_CH_EvalResult where ResourceID = $($Device.ResourceID)" | select HealthCheckDescription

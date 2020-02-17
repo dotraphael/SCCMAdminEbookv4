@@ -1,9 +1,9 @@
 $SiteCode = "001"
 $servername = "SRV0002.classroom.intranet"
-$sccmversion = '1806'
+$mecmversion = '1910'
 
 while ($true) {
-	$SiteUpdate = Get-CMSiteUpdate -Name "Configuration Manager $($sccmversion)" -Fast | where {$_.UpdateType -eq 0}
+	$SiteUpdate = Get-CMSiteUpdate -Name "Configuration Manager $($mecmversion)" -Fast | where {$_.UpdateType -eq 0}
 	if ($SiteUpdate -ne $null) {
 		if ($SiteUpdate.State -ne 131074) {
 			Write-Host "Pre-Check is still happening..."
@@ -18,13 +18,13 @@ while ($true) {
 }
 
 while ($true) {
-	$SiteUpdate = Get-CMSiteUpdate -Name "Configuration Manager $($sccmversion)" -Fast | where {$_.UpdateType -eq 0}
+	$SiteUpdate = Get-CMSiteUpdate -Name "Configuration Manager $($mecmversion)" -Fast | where {$_.UpdateType -eq 0}
 	if ($SiteUpdate -ne $null) {
 		if ($SiteUpdate.State -ne 196612) {
 			Write-Host "Installation is still happening..."
 			Start-Sleep 30
 		} else {
-			Write-Host "Installation done, upgrading SCCM Console"
+			Write-Host "Installation done, upgrading MECM Console"
 			$InstallationFolder = (Get-ItemProperty -Path "hklm:Software\Wow6432Node\Microsoft\ConfigMgr10\Setup" -ErrorAction SilentlyContinue)."UI Installation Directory"
 			$Connection = (Get-ItemProperty -Path "hklm:Software\Wow6432Node\Microsoft\ConfigMgr10\AdminUI\Connection" -ErrorAction SilentlyContinue)."Server"
 			if ($InstallationFolder -eq $null) {
@@ -39,7 +39,7 @@ while ($true) {
 			cd c:
 			Remove-Module ConfigurationManager -Force
 
-			Start-Process -Filepath ("C:\ConfigMgr\EasySetupPayload\$(($SiteUpdate | select PackageGuid).PackageGuid)\SMSSETUP\BIN\I386\consolesetup.exe") -ArgumentList ("/q TargetDir=`"$($InstallationFolder)`" DefaultSiteServerName=$($Connection)") -Wait
+			Start-Process -Filepath ("C:\ConfigMgr\EasySetupPayload\$(($SiteUpdate | select PackageGuid).PackageGuid)\SMSSETUP\BIN\I386\consolesetup.exe") -ArgumentList ("/q TargetDir=`"$($InstallationFolder)`" DefaultSiteServerName=$($Connection)") -Wait  -NoNewWindow
 			Start-Sleep 5
 			Start-Process -Filepath ("C:\ConfigMgr\AdminConsole\bin\Microsoft.ConfigurationManagement.exe")
 

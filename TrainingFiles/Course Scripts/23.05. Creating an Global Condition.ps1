@@ -1,0 +1,1 @@
+New-CMGlobalConditionWqlQuery -Class "Win32_ComputerSystem" -DataType String -Name "Computer Model" -Property "Model" -Namespace "root\cimv2"

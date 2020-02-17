@@ -17,5 +17,5 @@ Start-sleep 10
 Get-Service -Name BITS
 
 #execute evaluation
-Start-Process -Filepath ("c:\windows\ccm\ccmeval.exe") -wait
+Start-Process -Filepath ("c:\windows\ccm\ccmeval.exe") -wait -NoNewWindow
 Start-sleep 60

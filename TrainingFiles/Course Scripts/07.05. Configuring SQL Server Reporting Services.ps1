@@ -1,15 +1,17 @@
 $wmiName = (Get-WmiObject –namespace root\Microsoft\SqlServer\ReportServer  –class __Namespace).Name
 $rsConfig = Get-WmiObject –namespace "root\Microsoft\SqlServer\ReportServer\$wmiName\v14\Admin" -class MSReportServer_ConfigurationSetting -filter "InstanceName='SSRS'"
+import-module "C:\SQLServer (x86)\140\Tools\PowerShell\Modules\SQLPS\SQLPS.psd1" -Force
+start-sleep 5
 
 ##create database
 $SQLScript = ($rsConfig.GenerateDatabaseCreationScript('ReportServer', 1033, $false)).Script
 Invoke-Sqlcmd -ServerInstance 'srv0002' -Query $SQLScript
 
 ##add rights
-$SQLScript = ($rsConfig.GenerateDatabaseRightsScript('classroom\sccmadmin', 'ReportServer', $false, $true)).Script
+$SQLScript = ($rsConfig.GenerateDatabaseRightsScript('classroom\mecmadmin', 'ReportServer', $false, $true)).Script
 Invoke-Sqlcmd -ServerInstance 'srv0002' -Query $SQLScript
 
-$rsConfig.SetDatabaseConnection('SRV0002', 'ReportServer', 0, 'classroom\sccmadmin','Pa$$w0rd')
+$rsConfig.SetDatabaseConnection('SRV0002', 'ReportServer', 0, 'classroom\mecmadmin','Pa$$w0rd')
 $rsConfig.RemoveURL('ReportServerWebService', 'http://+:80', 1033)
 $rsconfig.SetVirtualDirectory('ReportServerWebService', 'ReportServer', 1033)
 $rsConfig.ReserveURL('ReportServerWebService', 'http://+:80', 1033)

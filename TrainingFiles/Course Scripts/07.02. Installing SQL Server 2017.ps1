@@ -34,7 +34,7 @@ ENABLERANU="False"
 SQLCOLLATION="SQL_Latin1_General_CP1_CI_AS"
 SQLSVCACCOUNT="NT AUTHORITY\SYSTEM"
 SQLSVCINSTANTFILEINIT="False"
-SQLSYSADMINACCOUNTS="CLASSROOM\SCCM Admins"
+SQLSYSADMINACCOUNTS="CLASSROOM\MECM Admins"
 SQLTEMPDBFILECOUNT="2"
 SQLTEMPDBFILESIZE="1024"
 SQLTEMPDBFILEGROWTH="64"
@@ -48,6 +48,6 @@ BROWSERSVCSTARTUPTYPE="Disabled"
 
 $inifile  -replace "`n", "`r`n" | Out-File -FilePath "\\srv0001\TempFiles\installsql.ini"
 
-Start-Process -Filepath ("\\srv0001\TrainingFiles\Source\SQLServer\Extract\setup.exe") -ArgumentList ('/ConfigurationFile="\\srv0001\TempFiles\\installsql.ini" /IAcceptSQLServerLicenseTerms') -wait
+Start-Process -Filepath ("\\srv0001\TrainingFiles\Source\SQLServer\Extract\setup.exe") -ArgumentList ('/ConfigurationFile="\\srv0001\TempFiles\\installsql.ini" /IAcceptSQLServerLicenseTerms') -wait -NoNewWindow
 Start-sleep 30
 
